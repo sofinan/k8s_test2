@@ -18,20 +18,18 @@ spec:
         ports:
         - containerPort: 80
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /k8s_test2/favicon.ico
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
         volumeMounts:
-          - name: hostvol
+          - name: git-volume
             mountPath: /usr/share/nginx/html
       volumes:
-      - name: hostvol
-        volumes:
       - name: git-volume
         gitRepo:
-          repository: "git@somewhere:me/my-git-repository.git"
-          revision: "master"
+          repository: "https://github.com/sofinan/k8s_test2.git"
 ---
 
 apiVersion: v1
